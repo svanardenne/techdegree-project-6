@@ -1,12 +1,18 @@
 ///////////////////
 // Global variables
 ///////////////////
+
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 let missed = 0;
 const mainContainer = document.querySelector('.main-container');
 const overlay = document.getElementById('overlay');
 const ul = document.querySelector('ul');
+
+////////////
+// Arrays
+////////////
+
 const phrases = [
     'For whom the bell tolls',
     'Let them eat cake',
@@ -15,9 +21,7 @@ const phrases = [
     'That is not dead which can eternal lie',
     'Common sense is not so common',
     'The oldest and strongest emotion of mankind is fear'
-
 ]
-const phraseArray = getRandomPhraseAsArray(phrases);
 
 ////////////
 // Functions 
@@ -36,7 +40,6 @@ function getRandomPhraseAsArray(arr) {
 
 // Gets an array of letters and creates list elements to put them in
 function addPhraseToDisplay(arr) {
-
     for (let i = 0; i < arr.length; i++ ) {
         const li = document.createElement('li');
         li.textContent = arr[i];
@@ -70,6 +73,7 @@ mainContainer.addEventListener('click', (e) => {
 });
 
 // Adds the phrase to the display
+const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 // Listens for keypresses and passes them to checkLetter()
