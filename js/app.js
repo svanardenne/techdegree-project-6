@@ -56,11 +56,14 @@ function addPhraseToDisplay(arr) {
 // the letter or subtracts health
 function checkLetter(key) {
     const letter = document.getElementsByClassName("letter");
+    let check = null;
     for (let i = 0; i < letter.length; i++) {
         if (key.textContent.toLowerCase() === letter[i].textContent.toLowerCase()) {
             letter[i].classList.add('show');
+            check = key.textContent;
         }
     }
+    return check;
 }
 
 /////////////
@@ -78,10 +81,12 @@ addPhraseToDisplay(phraseArray);
 
 // Listens for keypresses and passes them to checkLetter()
 qwerty.addEventListener('click', (event) => {
+    const scoreboard = document.getElementById('scoreboard');
     let keyPress = event.target;
     if (keyPress.tagName === 'BUTTON') {
     keyPress.className = 'chosen';
     keyPress.setAttribute('disabled', 'disabled');
-    checkLetter(keyPress);
+    const checked = checkLetter(keyPress);
+    console.log(checked);
     }
 });
