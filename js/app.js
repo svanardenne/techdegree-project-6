@@ -88,6 +88,7 @@ function checkWin() {
 
 function restartGame() {
     missed = 0;
+    overlay.style.display = 'none';
 }
 
 /////////////
@@ -95,11 +96,13 @@ function restartGame() {
 /////////////
 
 //Starts the game and removes the overlay
-reset.addEventListener('click', (e) => {
-    if (overlay.className === 'start') {
-        overlay.style.display = 'none';
-    } else if (overlay.className === 'win' || overlay.className === 'lose') {
-        restartGame();
+overlay.addEventListener('click', (e) => {
+    if (event.target.tagName === 'A') {
+        if (overlay.className === 'start') {
+            overlay.style.display = 'none';
+        } else if (overlay.className === 'win' || overlay.className === 'lose') {
+            restartGame();
+        }
     }
 });
 
