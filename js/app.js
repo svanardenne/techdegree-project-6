@@ -9,7 +9,7 @@ const mainContainer = document.querySelector('.main-container');
 const overlay = document.getElementById('overlay');
 const ul = document.querySelector('ul');
 const ol = document.querySelector('ol');
-const tries = document.querySelector('.tries');
+const tries = document.querySelectorAll('.tries');
 const reset = document.querySelector('.btn__reset');
 
 ////////////
@@ -76,12 +76,18 @@ function checkWin() {
     if (show.length === letter.length) {
         overlay.className = 'win';
         overlay.style.display = 'flex';
-        overlay.innerHTML += `<h1>You Win!</h1><h3>Hit "Start Game" to play again</h3>`;
+        overlay.innerHTML = `<h1>You Win!</h1><h3>Hit reset to play again</h3>
+        <a class="btn__reset">Reset</a>`;
     } else if (missed >= 5) {
         overlay.className = 'lose';
         overlay.style.display = 'flex';
-        overlay.innerHTML += `<h1>You lost</h1><h3>Hit "Start Game" to play again</h3>`;
+        overlay.innerHTML = `<h1>You lost</h1><h3>Hit reset to play again</h3>
+        <a class="btn__reset">Reset</a>`;
     }
+}
+
+function restartGame() {
+    missed = 0;
 }
 
 /////////////
@@ -90,7 +96,11 @@ function checkWin() {
 
 //Starts the game and removes the overlay
 reset.addEventListener('click', (e) => {
-    overlay.style.display = 'none';
+    if (overlay.className === 'start') {
+        overlay.style.display = 'none';
+    } else if (overlay.className === 'win' || overlay.className === 'lose') {
+        restartGame();
+    }
 });
 
 // Adds the phrase to the display
@@ -102,14 +112,12 @@ qwerty.addEventListener('click', (event) => {
     let keyPress = event.target;
     if (keyPress.tagName === 'BUTTON') {
     keyPress.className = 'chosen';
-    keyPress.setAttribute('disabled', 'disabled');
+    keyPress.setAttribute('disabled', true);
     const letterFound = checkLetter(keyPress);
     console.log(letterFound);
         if (letterFound === null) {
-            missed += 1;
-            let li = ol.firstElementChild;
-            ol.removeChild(li);
-            
+            tries[missed].firstChild.src = 'images/lostHeart.png';
+            missed ++;
         }
     }
     checkWin()
