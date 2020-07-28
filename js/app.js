@@ -87,6 +87,7 @@ function checkWin() {
     }
 }
 
+// Restarts the game and restores everything to original properties
 function restartGame() {
     let button = qwerty.getElementsByTagName('button');
     for (let i = 0; i < button.length; i++) {
