@@ -10,6 +10,7 @@ const overlay = document.getElementById('overlay');
 const ul = document.querySelector('ul');
 const ol = document.querySelector('ol');
 const tries = document.querySelector('.tries');
+const reset = document.querySelector('.btn__reset');
 
 ////////////
 // Arrays
@@ -88,7 +89,7 @@ function checkWin() {
 /////////////
 
 //Starts the game and removes the overlay
-overlay.addEventListener('click', (e) => {
+reset.addEventListener('click', (e) => {
     overlay.style.display = 'none';
 });
 
