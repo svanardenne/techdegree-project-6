@@ -19,11 +19,13 @@ const reset = document.querySelector('.btn__reset');
 const phrases = [
     'For whom the bell tolls',
     'Let them eat cake',
-    'I would rather die of passion than of boredom',
+    'Stairway to Heaven',
     'All along the watchtower',
-    'That is not dead which can eternal lie',
+    'Eleanor Rigby',
+    'Simplicity is the ultimate sophistication',
+    'What we think we become',
     'Common sense is not so common',
-    'The oldest and strongest emotion of mankind is fear'
+    'Vae Victis'
 ]
 
 ////////////
@@ -33,7 +35,7 @@ const phrases = [
 // Gets a random phrase from an array and splits it into letters
 function getRandomPhraseAsArray(arr) {
     const randomNumber = parseInt(Math.random() * 5);
-    for (let i = 0; i < phrases.length; i++ ) {
+    for (let i = 0; i < phrases.length; i++) {
         if (randomNumber === i) {
             const randomPhrase = arr[i];
             return randomPhrase.split('');
@@ -43,7 +45,7 @@ function getRandomPhraseAsArray(arr) {
 
 // Gets an array of letters and creates list elements to put them in
 function addPhraseToDisplay(arr) {
-    for (let i = 0; i < arr.length; i++ ) {
+    for (let i = 0; i < arr.length; i++) {
         const li = document.createElement('li');
         li.textContent = arr[i];
         ul.appendChild(li);
@@ -72,7 +74,6 @@ function checkLetter(key) {
 function checkWin() {
     const show = document.querySelectorAll('.show');
     const letter = document.querySelectorAll('.letter');
-    console.log(overlay);
     if (show.length === letter.length) {
         overlay.className = 'win';
         overlay.style.display = 'flex';
@@ -87,8 +88,19 @@ function checkWin() {
 }
 
 function restartGame() {
+    let button = qwerty.getElementsByTagName('button');
+    for (let i = 0; i < button.length; i++) {
+        button[i].removeAttribute('class');
+        button[i].removeAttribute('disabled');
+    }
     missed = 0;
+    for (let i = 0; i < 5; i++) {
+        tries[i].firstChild.src = 'images/liveHeart.png';
+    }
     overlay.style.display = 'none';
+    ul.innerHTML = '';
+    const newPhraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(newPhraseArray);
 }
 
 /////////////
@@ -114,13 +126,12 @@ addPhraseToDisplay(phraseArray);
 qwerty.addEventListener('click', (event) => {
     let keyPress = event.target;
     if (keyPress.tagName === 'BUTTON') {
-    keyPress.className = 'chosen';
-    keyPress.setAttribute('disabled', true);
-    const letterFound = checkLetter(keyPress);
-    console.log(letterFound);
+        keyPress.className = 'chosen';
+        keyPress.setAttribute('disabled', true);
+        const letterFound = checkLetter(keyPress);
         if (letterFound === null) {
             tries[missed].firstChild.src = 'images/lostHeart.png';
-            missed ++;
+            missed++;
         }
     }
     checkWin()
