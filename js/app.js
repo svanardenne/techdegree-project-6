@@ -76,11 +76,11 @@ function checkWin() {
     if (show.length === letter.length) {
         overlay.className = 'win';
         overlay.style.display = 'flex';
-        overlay.innerHTML = `<h1>You Win!</h1><h3>Hit reset to play again</h3>`;
+        overlay.innerHTML += `<h1>You Win!</h1><h3>Hit "Start Game" to play again</h3>`;
     } else if (missed >= 5) {
         overlay.className = 'lose';
         overlay.style.display = 'flex';
-        overlay.innerHTML = `<h1>You lost</h1><h3>Hit reset to play again</h3>`;
+        overlay.innerHTML += `<h1>You lost</h1><h3>Hit "Start Game" to play again</h3>`;
     }
 }
 
